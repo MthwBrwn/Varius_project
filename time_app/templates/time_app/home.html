@@ -1,0 +1,14 @@
+{% extends "time_app/base.html" %}
+    {% block content %}
+
+        <h2>this is the home body</h2>
+        {% for dum_dum in dummy %}
+            <h1>{{dum_dum.client}}</h1>
+            <h2>{{dum_dum.project}}</h2>
+            <h3>{{dum_dum.time}}</h3>
+            <h3>{{dum_dum.notes}}</h3>
+            <h3>{{dum_dum.date}}</h3>
+        {% endfor %}
+    
+    {% endblock content %}
+    
