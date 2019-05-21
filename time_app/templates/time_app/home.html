@@ -5,11 +5,13 @@
         <article class="media content-section">
             
             <div class="media-body">
-                {% comment %} <h1>client : {{post.client.client}}</h1>
-                <h3>   {{post.client.project_name}}</h3>
-                <h3>{{post.time_spent}}</h3>
-                <h3>notes: {{post.notes}}</h3>
-                <h3>{{post.date}}</h3> {% endcomment %}
+                <div>
+                <span><h1>{{post.client.client}}</h1>
+                <h3> {{post.project_name.project_name}}</h3></span>
+                </div>
+                <h3>{{post.time_spent}} hours</h3>
+                <h4>{{post.date}}</h4> 
+                <p class="article-content">notes: {{post.notes}}</p>
             </div>
                 
         </article>
