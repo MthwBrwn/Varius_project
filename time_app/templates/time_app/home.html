@@ -1,19 +1,14 @@
 {% extends "time_app/base.html" %}
-{% block content %}
-<h2>Time Submissions for {{user.username}}</h2>
-    {% for post in posts %}
-        <article class="media content-section">
-            
-            <div class="media-body">
-                <h1>client : {{post.client.client}}</h1>
-                <h3>   {{post.client.project_name}}</h3>
-                <h3>{{post.time_spent}}</h3>
-                <h3>notes: {{post.notes}}</h3>
-                <h3>{{post.date}}</h3>
-            </div>
-                
-        </article>
-    {% endfor %}
+    {% block content %}
+
+        <h2>this is the home body</h2>
+        {% for dum_dum in dummy %}
+            <h1>{{dum_dum.client}}</h1>
+            <h2>{{dum_dum.project}}</h2>
+            <h3>{{dum_dum.time}}</h3>
+            <h3>{{dum_dum.notes}}</h3>
+            <h3>{{dum_dum.date}}</h3>
+        {% endfor %}
     
     {% endblock content %}
     
