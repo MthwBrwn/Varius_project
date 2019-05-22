@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import TimePost
-from django.views.generic import ListView, DetailView
+from django.views.generic import (
+    ListView, DetailView, CreateView
+)
 
 # posts = TimePost.objects.all()
 
@@ -22,3 +24,8 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = TimePost
+
+
+class PostCreateView(CreateView):
+    model = TimePost
+    fields = ['time_spent', 'notes', 'client', 'project_name']

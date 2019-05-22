@@ -9,7 +9,8 @@ class Client(models.Model):
     client = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.project_name
+        return self.client
+
 
 class ProjectName(models.Model):
     '''

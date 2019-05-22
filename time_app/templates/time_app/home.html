@@ -4,18 +4,17 @@
     {% for post in posts %}
         {% if post.user.username == user.username %}
             <article class="media content-section">
-            
-            <div class="media-body">
-                <div>
-                <span><h1>{{post.client.client}}</h1><h3> {{post.project_name.project_name}}</h3></span>
-                <h3> {{post.user.username}}</h3>
+                <div class="media-body">
+                    <div>
+                    <span><p>{{post.client.client}}</p>
+                    <p> {{post.project_name.project_name}}<p></span>
+                    </div>
+                    <p> {{post.user.username}}</p>
+                    <a class= "article-title" href="{% url 'post-detail' post.id %}"> <p>{{post.time_spent}} hours</h3></a>
+                    <p>{{post.date}}</p> 
+                    <p class="article-content">notes: {{post.notes}}</p>
                 </div>
-                <h3>{{post.time_spent}} hours</h3>
-                <h4>{{post.date}}</h4> 
-                <p class="article-content">notes: {{post.notes}}</p>
-            </div>
-                
-        </article>
+            </article>
         {% endif %}
     {% endfor %}   
     <h2>Time Submissions for All</h2>
@@ -27,7 +26,7 @@
                 <span><h1>{{post.client.client}}</h1><h3> {{post.project_name.project_name}}</h3></span>
                 <h3> {{post.user.username}}</h3>
                 </div>
-                <h3>{{post.time_spent}} hours</h3>
+                <a class= "article-title" href="{% url 'post-detail' post.id %}"> <h3>{{post.time_spent}} hours</h3></a>
                 <h4>{{post.date}}</h4> 
                 <p class="article-content">notes: {{post.notes}}</p>
             </div>

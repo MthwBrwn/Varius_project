@@ -1,19 +1,18 @@
 {% extends "time_app/base.html" %}
 {% block content %}
-<h2>Time Submissions for {{user.username}}</h2>
     
-            <article class="media content-section">
-            
-            <div class="media-body">
-                <div>
-                <span><h1>{{object.client.client}}</h1>
-                <h3> {{object.project_name.project_name}}</h3></span>
-                <h3> {{object.user.username}}</h3></span>
-                </div>
-                <h3>{{object.time_spent}} hours</h3>
-                <h4>{{object.date}}</h4> 
-                <p class="article-content">notes: {{object.notes}}</p>
+    <article class="media content-section">
+        <div class="media-body">
+            <div>
+            <span><h1>{{object.client.client}}</h1>
+            <h3> {{object.project_name.project_name}}</h3></span>
+            <h3> {{object.user.username}}</h3></span>
             </div>
-                
-        </article>
+            <h3>{{object.time_spent}} hours</h3>
+            <h4>{{object.date}}</h4> 
+            <p class="article-content">notes: {{object.notes}}</p>
+        </div> 
+    </article>
+
+{% endblock content %}
         
