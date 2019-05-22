@@ -6,13 +6,15 @@ from django.contrib.auth.models import User
 class Client(models.Model):
     '''
     '''
-    client = models.CharField(primary_key=True, max_length=255)
+    client = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.project_name
 
 class ProjectName(models.Model):
     '''
     '''
-    project_name = models.CharField(primary_key=True, max_length=255)
+    project_name = models.CharField(max_length=255)
     client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
