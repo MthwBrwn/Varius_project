@@ -1,8 +1,9 @@
 {% extends "time_app/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
+
     <div class="content-section">
-        <form method="POST">
+        <form method="POST" id="timePostForm" data-projects-url="{% url 'ajax_load_projects' %}"novalidate>
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">New Time Post </legend>
@@ -10,7 +11,27 @@
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit"> Save </button>
+                <a class="btn btn-outline-info ml-5"href=" "> Cancel </a>
             </div>
         </form>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      $("#id_client").change(function () {
+        var url = $("#timePostForm").attr("data-projects-url");  
+        var clientId = $(this).val(); 
+  
+        $.ajax({                       
+          url: url,                    
+          data: {
+            'client': clientId       
+          },
+          success: function (data) {   
+            $("#id_project").html(data);  
+          }
+        });
+  
+      });
+    </script>
 {% endblock content %}

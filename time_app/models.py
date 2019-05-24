@@ -11,7 +11,7 @@ class Client(models.Model):
     name = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.client
+        return self.name
 
 
 class Project(models.Model):
@@ -21,7 +21,7 @@ class Project(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return self.project_name
+        return self.name
 
 
 class TimePost(models.Model):
