@@ -29,7 +29,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = TimePost
-    fields = ['time_spent', 'notes', 'client', 'project_name']
+    # fields = ['time_spent', 'client', 'project_name','notes']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
