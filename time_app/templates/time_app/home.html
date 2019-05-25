@@ -4,20 +4,20 @@
     {% for post in posts %}
         {% if post.user.username == user.username %}
             <article class="media content-section">
+                <a class= "article-title" href="{% url 'post-detail' post.id %}"> 
                 <div class="media content">
                     <div class="float-left" >
-                    <span><p>{{post.client.name}}</p>
-                    <p> {{post.project.name}}<p></span>
+                        <p>{{post.client.name}}</p>
+                        <p> {{post.project.name}}<p>
                     </div>
-
-                    {% comment %} <p> {{post.user.username}}</p> {% endcomment %}
                     <div class="ml-5">
-                    <a class= "article-title" href="{% url 'post-detail' post.id %}"> <p>{{post.time_spent}} hours</h3></a>
-                    <p>{{post.date}}</p> 
-
+                    <p>{{post.time_spent}} hours</h3>
+                    {% comment %} <p> {{post.user.username}}</p> {% endcomment %}
+                    <p>{{post.date}}</> 
                     </div>
                     <p class="article-content ml-5">notes: {{post.notes}}</p>
                 </div>
+                </a>
             </article>
         {% endif %}
     {% endfor %}   

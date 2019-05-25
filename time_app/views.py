@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import TimePost, Project
 from .forms import TimePostForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
-    ListView, DetailView, CreateView
+    ListView, DetailView, CreateView, UpdateView, DeleteView
 )
 
 
@@ -53,3 +53,30 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
         form.save()
 
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = TimePost
+    form_class = TimePostForm
+    # fields = ['time_spent', 'client', 'project', 'notes']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+        form.save()
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.user:
+            return True
+
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = TimePost
+    success_url = '/'
+  
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.user:
+            return True
+
+    

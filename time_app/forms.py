@@ -5,7 +5,7 @@ from .models import TimePost, Project
 class TimePostForm(forms.ModelForm):
     class Meta:
         model = TimePost
-        fields = ('time_spent', 'client', 'project', 'notes')
+        fields = ('time_spent', 'date', 'client', 'project', 'notes')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
