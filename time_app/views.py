@@ -32,6 +32,13 @@ class PostListView(ListView):
     ordering = ['-date']
 
 
+class OverviewListView(ListView):
+    model = TimePost
+    template_name = 'time_app/overview.html'
+    context_object_name = 'posts'
+    ordering = ['-date']
+
+
 class PostDetailView(DetailView):
     model = TimePost
 
