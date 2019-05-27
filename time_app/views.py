@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from .models import TimePost, Project
 from .forms import TimePostForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -32,13 +31,6 @@ class PostListView(ListView):
     ordering = ['-date']
 
 
-class OverviewListView(ListView):
-    model = TimePost
-    template_name = 'time_app/overview.html'
-    context_object_name = 'posts'
-    ordering = ['-date']
-
-
 class PostDetailView(DetailView):
     model = TimePost
 
@@ -46,7 +38,6 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = TimePost
     form_class = TimePostForm
-    # fields = ['time_spent', 'client', 'project', 'notes']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -57,7 +48,6 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = TimePost
     form_class = TimePostForm
-    # fields = ['time_spent', 'client', 'project', 'notes']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -80,3 +70,8 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
 
     
+class OverviewListView(ListView):
+    model = TimePost
+    template_name = 'time_app/overview.html'
+    context_object_name = 'posts'
+    ordering = ['-date']

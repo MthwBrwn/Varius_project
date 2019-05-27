@@ -34,8 +34,7 @@ INSTALLED_APPS = [
     'time_app.apps.TimeAppConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
-    'dal',
-    'dal_select2',
+    'flatpickr',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -127,6 +126,6 @@ STATIC_URL = '/static/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
-LOGIN_REDIRECT_URL = 'profile'
+LOGIN_REDIRECT_URL = 'time-home'
 LOGIN_URL = 'login'
 
