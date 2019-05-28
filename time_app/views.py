@@ -3,7 +3,9 @@ from .models import TimePost, Project
 from .forms import TimePostForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
-    ListView, DetailView, CreateView, UpdateView, DeleteView
+    ListView, DetailView,
+    CreateView, UpdateView,
+    DeleteView, WeekArchiveView,
 )
 
 
@@ -31,6 +33,13 @@ class PostListView(ListView):
     ordering = ['-date']
 
 
+class PostWeekArchiveView(WeekArchiveView):
+    queryset = TimePost.objects.filter()
+    date_field = "date"
+    week_format = "%W"
+    allow_future = False
+
+
 class PostDetailView(DetailView):
     model = TimePost
 
@@ -38,6 +47,7 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = TimePost
     form_class = TimePostForm
+    success_url = '/'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -48,6 +58,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = TimePost
     form_class = TimePostForm
+    success_url = '/'
 
     def form_valid(self, form):
         form.instance.user = self.request.user

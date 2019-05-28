@@ -11,6 +11,17 @@ class TimePostForm(forms.ModelForm):
             'notes': forms.Textarea(attrs={'rows': 4}),
             'date': DatePickerInput()
         }
+        help_texts = {
+            'time_spent': 'partial hours should only be entered as quarter-hours (.25, .5, .75, .0)'
+        }
+
+    def clean_time_spent(self):
+        time_try = self.cleaned_data.get("time_spent")
+        if time_try % .25 > 0:
+            raise forms.ValidationError("The partial hours posted need to be in quarter hours only")
+        if time_try < 0:
+            raise forms.ValidationError("time posted cannot be negative")
+        return time_try
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
