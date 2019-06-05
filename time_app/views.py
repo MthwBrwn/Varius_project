@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import TimePost, Project
-from .forms import TimePostForm
+from .forms import TimePostForm, TimeGetForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
     ListView, DetailView,
@@ -10,6 +10,8 @@ from django.views.generic import (
 
 
 def load_projects(request):
+    """
+    """
     client_id = request.GET.get('client')
     projects = Project.objects.filter(client_id=client_id).order_by('name')
     return render(
@@ -25,22 +27,34 @@ def load_projects(request):
 #     }
 #     return render(request, 'time_app/home.html', context) 
 
+class OwnObjectsMixin():
+    """
+    This is a custom mixin to show only those time entries 
+    for the specific user
+    """
+    def get_queryset(self):
+        user = self.request.user
+        return super(OwnObjectsMixin, self).get_queryset().filter(user=user)
 
-class PostListView(ListView):
+
+class PostListView(LoginRequiredMixin, OwnObjectsMixin, ListView):
     model = TimePost
     template_name = 'time_app/home.html'
     context_object_name = 'posts'
     ordering = ['-date']
+    paginate_by = 10
+    paginate_orphans = 2
+    
 
 
 class PostWeekArchiveView(WeekArchiveView):
-    queryset = TimePost.objects.filter()
+    queryset = TimePost.objects.all()
     date_field = "date"
     week_format = "%W"
     allow_future = False
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, OwnObjectsMixin, DetailView):
     model = TimePost
 
 
@@ -86,3 +100,12 @@ class OverviewListView(ListView):
     template_name = 'time_app/overview.html'
     context_object_name = 'posts'
     ordering = ['-date']
+
+
+def SelectedListView(request):
+
+    return render(request, selected_view.html)
+    # model = TimePost
+    # template_name = 'time_app/selected_view'
+    # context_object_name = 'posts'
+    # ordering = ['-date']

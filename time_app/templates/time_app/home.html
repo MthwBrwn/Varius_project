@@ -1,9 +1,23 @@
 {% extends "time_app/base.html" %}
 {% block content %}
 <h2>Time Submissions for {{user.username}}</h2>
+{% if is_paginated %}
+<h5 class="mb-4 "> Page {{ page_obj.number }} </h5>
+    {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1"> First </a>
+        <a class="btn btn-outline-info mb-4" href="?page={{page_obj.previous_page_number}}"> Previous</a>
+    {% endif %}
+    {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{page_obj.next_page_number}}"> Next </a>
+        <a class="btn btn-outline-info mb-4" href="?page={{page_obj.paginator.num_pages}}"> Last </a>
+        
+    {% endif %}
+        
+{% endif %}
     {% for post in posts %}
-        {% if post.user.username == user.username %}
+        <!-- {% if post.user.username == user.username %} -->
             <article class="media content-section">
+
                 <a class= "article-title" href="{% url 'post-detail' post.id %}"> 
                 <div class="media content">
                     <div class="float-left" >
@@ -12,16 +26,17 @@
                     </div>
                     <div class="ml-5">
                     <p>{{post.time_spent}} hours </h3>
-                    {% comment %} <p> {{post.user.username}}</p> {% endcomment %}
-                    <p>{{post.date}}</> 
+                    <!-- <p> {{post.user.username}}</p> -->
+                    <p>{{post.date}} </p> 
                     </div>
                     <p class="article-content ml-5">notes: {{post.notes}}</p>
                 </div>
                 </a>
             </article>
-        {% endif %}
-    {% endfor %}   
+        <!-- {% endif %}  -->
+    {% endfor %}  
+
     
     
-    {% endblock content %}
+{% endblock content %}
     

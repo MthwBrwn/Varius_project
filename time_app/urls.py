@@ -9,6 +9,7 @@ from .views import (
     PostDeleteView,
     PostWeekArchiveView,
     OverviewListView,
+    SelectedListView,
 )
 
 urlpatterns = [
@@ -16,7 +17,7 @@ urlpatterns = [
     path('timepost/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
     path('timepost/new/', PostCreateView.as_view(), name='post-create'),
     path(
-        'timepost/<int:pk>/update/', 
+        'timepost/<int:pk>/update/',
         PostUpdateView.as_view(), name='post-update'
         ),
     path(
@@ -28,6 +29,12 @@ urlpatterns = [
         views.load_projects,
         name='ajax_load_projects'
         ),
-    path('<int:year>/week/<int:week>/', PostWeekArchiveView.as_view(), name='post-week'),
-    path('overview/', OverviewListView.as_view(), name='overview-create')
+    path(
+        '<int:year>/week/<int:week>/',
+        PostWeekArchiveView.as_view(),
+        name='post-week'
+        ),
+    path('overview/', OverviewListView.as_view(), name='overview-create'),
+    path('selectview/', SelectedListView.as_view(), name='selected-view')
+
 ]

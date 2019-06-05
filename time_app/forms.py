@@ -19,15 +19,16 @@ class TimePostForm(forms.ModelForm):
         time_try = self.cleaned_data.get("time_spent")
         if time_try % .25 > 0:
             raise forms.ValidationError("The partial hours posted need to be in quarter hours only")
-        if time_try < 0:
+        if time_try <= 0:
             raise forms.ValidationError("time posted cannot be negative")
+        if time_try >= 24.0:
+            raise forms.ValidationError("time posted cannot be greater than 24.0 hours")
         return time_try
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['project'].queryset = Project.objects.none()
-        # self.fields['date'].widget = widgets.AdminDateWidget()
-
+        
         if 'client' in self.data:
                 try:
                     client_id = int(self.data.get('client'))
@@ -37,3 +38,10 @@ class TimePostForm(forms.ModelForm):
                     pass  
         elif self.instance.pk:
             self.fields['project'].queryset = self.instance.client.project_set.order_by('name')
+
+
+class TimeGetForm(forms.ModelForm):
+    class Meta:
+        model = TimePost
+        fields = ('date', 'client', 'project',)
+        

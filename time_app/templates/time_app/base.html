@@ -22,6 +22,7 @@
                     <div class="collapse navbar-collapse" id="navbarToggle">
                         <div class="navbar-nav mr-auto">
                         <a class="nav-item nav-link" href="{% url 'time-home' %}">Home</a>
+                        {% comment %} <a class="nav-item nav-link" href="{% url 'post-week' datetime.datetime.now.strftime('%Y, %W') %}"> Arrange by Week</a> {% endcomment %}
                         <a class="nav-item nav-link ml-4" href="{% url 'post-create' %}"> Add new 'time post'</a>
                         </div>
                         <!-- Navbar Right Side -->
