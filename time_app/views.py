@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import TimePost, Project
+from .models import TimePost, Project, Client
+from django.contrib.auth.models import User
 from .forms import TimePostForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
@@ -7,6 +8,11 @@ from django.views.generic import (
     CreateView, UpdateView,
     DeleteView, WeekArchiveView,
 )
+
+clients = Client.objects.all()
+projects = Project.objects.all()
+posts = TimePost.objects.all()
+users = User.objects.all()
 
 
 def load_projects(request):
@@ -18,7 +24,6 @@ def load_projects(request):
         request, 'time_app/project_dropdown_list_options.html',
         {'projects': projects}
         )
-# posts = TimePost.objects.all()
 
 
 # def home(request):
@@ -102,5 +107,10 @@ class OverviewListView(ListView):
 
 
 def SelectedListView(request):
-
-    return render(request, 'time_app/selected_view_form.html', {})
+    context = {
+        'posts': posts,
+        'clients': clients,
+        'projects': projects,
+        'users': users,
+    }
+    return render(request, 'time_app/selected_view_form.html', context)
