@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import TimePost, Project
-from .forms import TimePostForm, TimeGetForm
+from .forms import TimePostForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
     ListView, DetailView,
@@ -45,7 +45,6 @@ class PostListView(LoginRequiredMixin, OwnObjectsMixin, ListView):
     paginate_by = 10
     paginate_orphans = 2
     
-
 
 class PostWeekArchiveView(WeekArchiveView):
     queryset = TimePost.objects.all()
@@ -104,8 +103,4 @@ class OverviewListView(ListView):
 
 def SelectedListView(request):
 
-    return render(request, selected_view.html)
-    # model = TimePost
-    # template_name = 'time_app/selected_view'
-    # context_object_name = 'posts'
-    # ordering = ['-date']
+    return render(request, 'time_app/selected_view_form.html', {})

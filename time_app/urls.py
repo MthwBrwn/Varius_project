@@ -35,6 +35,5 @@ urlpatterns = [
         name='post-week'
         ),
     path('overview/', OverviewListView.as_view(), name='overview-create'),
-    path('selectview/', SelectedListView.as_view(), name='selected-view')
-
+    path('overview/selectedview/', SelectedListView, name='selected-view')
 ]
