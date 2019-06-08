@@ -4,13 +4,15 @@
     <article class="media content-section">
         <div class="media-body">
             <div>
-            <span><h1>{{object.client.client}}</h1>
-            <h3> {{object.project_name.project_name}}</h3></span>
-            <h3> {{object.user.username}}</h3></span>
+            <h1>{{object.client.name}}</h1>
+            <h3> {{object.project.name}}</h3>
+            {% comment %} <h3> {{object.user.username}}</h3> {% endcomment %}
             </div>
             <h3>{{object.time_spent}} hours</h3>
             <h4>{{object.date}}</h4> 
             <p class="article-content">notes: {{object.notes}}</p>
+            <a class="btn btn-outline-info ml-5"href="{% url 'post-update' object.id %}"> EDIT </a>
+            <a class="btn btn-outline-danger ml-5"href="{% url 'post-delete' object.id %}"> DELETE </a>
         </div> 
     </article>
 

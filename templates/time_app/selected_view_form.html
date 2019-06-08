@@ -1,0 +1,81 @@
+{% extends "time_app/base.html" %}
+{% block content %}
+
+
+<main role="main" class="container">
+
+  <div class="starter-template ">
+    <h4> Filter selection</h4>
+    <p class="lead mb-5"> Use this form to get the hours worked for any project in a specified date range. </p>
+    
+    <form action="{% url 'show-selected-view' %}" method="get" id="selectViewForm" data-projects-url="{% url 'ajax_load_projects' %}">
+          
+      <div class="form-row mb-4">
+
+        <div class="form-group col-md-6">
+          <label for="client">Client</label>
+          <select name="client" id="id_client" class="form-control">
+            <option value=0 >Open to select client</option>
+            {% for client in clients %}
+              <option value="{{client.pk}}">{{client.name}}</option>            
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="project"> Project</label>
+          <select name="project" id="id_project"class="form-control" >
+            <option value="0" > Select the project after client is selected </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row mb-4">
+        <div class="form-group col-md-6">
+          <label for="user"> Employee </label>
+          <select name="user" id="user"class="form-control" >
+            <option value = 0 >Open to select Employee</option>
+            {% for user in users %}
+              <option value="{{user.pk}}">{{user.username}}</option>
+              
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+          
+        <div class="form-row mb-4">
+          <div class="form-group col-md-6">
+            <label for="date"> Starting Date </label>
+            <input type="date" class="form-control" name="date_start" id="date_start" >
+          </div>
+          <div class="form-group col-md-6">
+            <label for="date"> Ending Date</label>
+            <input type="date" class="form-control" name="date_end" id="date_end">
+          </div>
+
+          
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</main>
+
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      $("#id_client").change(function () {
+        var url = $("#selectViewForm").attr("data-projects-url");  
+        var clientId = $(this).val(); 
+  
+        $.ajax({                       
+          url: url,                    
+          data: {
+            'client': clientId       
+          },
+          success: function (data) {   
+            $("#id_project").html(data);  
+          }
+        });
+  
+      });
+    </script>
+    
+{% endblock content %}

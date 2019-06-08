@@ -2,7 +2,6 @@ from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class Client(models.Model):
@@ -27,6 +26,7 @@ class Project(models.Model):
 class TimePost(models.Model):
     '''
     '''
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     time_spent = models.FloatField()
     notes = models.TextField()
     date = models.DateField(default=timezone.now)
@@ -35,7 +35,6 @@ class TimePost(models.Model):
         Project, on_delete=models.CASCADE,
         null=True
         )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.notes

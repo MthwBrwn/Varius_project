@@ -1,0 +1,50 @@
+{% extends "time_app/base.html" %}
+{% block content %}
+<a href="{% url 'selected-view'%}" class="navbar-brand btn btn-outline-info mb-3" > Filter Results </a>
+<h2>Time Submissions </h2>
+{% if total_hours %}
+<h3 class=""> Total Hours: {{total_hours}}</h3>
+
+
+{% endif %}
+{% if is_paginated %}
+<h5 class="mb-4 "> Page {{ page_obj.number }} </h5>
+    {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1"> First </a>
+        <a class="btn btn-outline-info mb-4" href="?page={{page_obj.previous_page_number}}"> Previous</a>
+    {% endif %}
+    {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{page_obj.next_page_number}}"> Next </a>
+        <a class="btn btn-outline-info mb-4" href="?page={{page_obj.paginator.num_pages}}"> Last </a>
+        
+    {% endif %}
+        
+{% endif %}
+    {% for post in posts %}
+      
+            <article class="media content-section">
+
+                <a class= "article-title" href="#"> 
+                <div class="float-left media content">
+                    <div class=" ml-2"  >
+                        <p>{{post.client.name}}</p>
+                        <p> {{post.project.name}}<p>
+                    </div>
+                    <div class="ml-5">
+                    <p>{{post.time_spent}} hours </h3>
+                    <p>{{post.date}} </p> 
+                    </div>
+                    <div class="ml-5">
+                    <p> {{post.user.username}}</p> 
+                    <p> notes: {{post.notes}}</p>
+                    </div>
+                </div>
+                </a>
+            </article>
+      
+    {% endfor %}  
+
+    
+    
+{% endblock content %}
+    
