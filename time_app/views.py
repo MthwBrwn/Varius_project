@@ -103,6 +103,7 @@ class OverviewListView(ListView):
     template_name = 'time_app/overview.html'
     context_object_name = 'posts'
     ordering = ['-date']
+    paginate_by = 15
 
 
 def show_selected_view(request):
@@ -112,7 +113,7 @@ def show_selected_view(request):
     client_query = request.GET.get('client')
     user_query = request.GET.get('user')
     date_start_query = request.GET.get('date_start')
-    # date_end_query = request.GET.get('date_end')
+    date_end_query = request.GET.get('date_end')
     
     if user_query != "0":
         posts = posts.filter(user_id=user_query)
@@ -123,10 +124,10 @@ def show_selected_view(request):
     elif client_query != "0":
         posts = posts.filter(client_id=client_query)
 
-    if date_start_query != "" or date_start_query is not None:
+    if date_start_query != '' and date_start_query is not None:
         posts = posts.filter(date__gte=date_start_query)
 
-    if date_end_query != "" or date_end_query is not None:
+    if date_end_query != '' and date_end_query is not None:
         posts = posts.filter(date__lte=date_end_query)
     
     posts = posts.order_by('-date', 'client')
@@ -143,12 +144,7 @@ def show_selected_view(request):
 
 
 def SelectedListView(request):
-    # project_query = request.GET.get('project')
-    # client_query = request.GET.get('client')
-    # user_query = request.GET.get('user')
-    # date_start_query = request.GET.get('date_start')
-    # date_end_query = request.GET.get('date_end')
-
+ 
     context = {
         'clients': clients,
         'projects': projects,
