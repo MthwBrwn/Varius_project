@@ -111,7 +111,7 @@ def show_selected_view(request):
     project_query = request.GET.get('project')
     client_query = request.GET.get('client')
     user_query = request.GET.get('user')
-    # date_start_query = request.GET.get('date_start')
+    date_start_query = request.GET.get('date_start')
     # date_end_query = request.GET.get('date_end')
     
     if user_query != "0":
@@ -123,10 +123,13 @@ def show_selected_view(request):
     elif client_query != "0":
         posts = posts.filter(client_id=client_query)
 
-    # if date_start_query != "" or date_start_query is not None:
-    #     posts = posts.filter(date__gte=date_start_query)
+    if date_start_query != "" or date_start_query is not None:
+        posts = posts.filter(date__gte=date_start_query)
 
-    # if date_end_query != "" or is not None:
+    if date_end_query != "" or date_end_query is not None:
+        posts = posts.filter(date__lte=date_end_query)
+    
+    posts = posts.order_by('-date', 'client')
 
     total_hours = 0
     for post in posts:
@@ -146,7 +149,6 @@ def SelectedListView(request):
     # date_start_query = request.GET.get('date_start')
     # date_end_query = request.GET.get('date_end')
 
-    
     context = {
         'clients': clients,
         'projects': projects,
