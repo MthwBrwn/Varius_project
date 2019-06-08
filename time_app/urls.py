@@ -10,6 +10,7 @@ from .views import (
     PostWeekArchiveView,
     OverviewListView,
     SelectedListView,
+    show_selected_view,
 )
 
 urlpatterns = [
@@ -35,5 +36,10 @@ urlpatterns = [
         name='post-week'
         ),
     path('overview/', OverviewListView.as_view(), name='overview-create'),
+    path(
+        'overview/selectedview/showselectedview',
+        show_selected_view, 
+        name='show-selected-view'
+        ),
     path('overview/selectedview/', SelectedListView, name='selected-view')
 ]

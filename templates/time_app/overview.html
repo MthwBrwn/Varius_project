@@ -1,6 +1,8 @@
 {% extends "time_app/base.html" %}
 {% block content %}
-<h2>Time Submissions for All </h2>
+<a href="{% url 'selected-view'%}" class="navbar-brand" > Filter Results </a>
+<h2>Time Submissions </h2>
+<span> <h3 class=""> Total Hours: {{total_hours}}</h3></span>
 {% if is_paginated %}
 <h5 class="mb-4 "> Page {{ page_obj.number }} </h5>
     {% if page_obj.has_previous %}
@@ -15,7 +17,7 @@
         
 {% endif %}
     {% for post in posts %}
-        <!-- {% if post.user.username == user.username %} -->
+      
             <article class="media content-section">
 
                 <a class= "article-title" href="{% url 'post-detail' post.id %}"> 
@@ -33,7 +35,7 @@
                 </div>
                 </a>
             </article>
-        <!-- {% endif %}  -->
+      
     {% endfor %}  
 
     

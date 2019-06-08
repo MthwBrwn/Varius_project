@@ -8,10 +8,9 @@ from django.views.generic import (
     CreateView, UpdateView,
     DeleteView, WeekArchiveView,
 )
-
+posts = TimePost.objects.all()
 clients = Client.objects.all()
 projects = Project.objects.all()
-posts = TimePost.objects.all()
 users = User.objects.all()
 
 
@@ -106,9 +105,49 @@ class OverviewListView(ListView):
     ordering = ['-date']
 
 
-def SelectedListView(request):
+def show_selected_view(request):
+    posts = TimePost.objects.all()
+
+    project_query = request.GET.get('project')
+    client_query = request.GET.get('client')
+    user_query = request.GET.get('user')
+    # date_start_query = request.GET.get('date_start')
+    # date_end_query = request.GET.get('date_end')
+    
+    if user_query != "0":
+        posts = posts.filter(user_id=user_query)
+
+    if project_query != "0":
+        posts = posts.filter(project_id=project_query)
+    
+    elif client_query != "0":
+        posts = posts.filter(client_id=client_query)
+
+    # if date_start_query != "" or date_start_query is not None:
+    #     posts = posts.filter(date__gte=date_start_query)
+
+    # if date_end_query != "" or is not None:
+
+    total_hours = 0
+    for post in posts:
+        total_hours += post.time_spent
+    
     context = {
         'posts': posts,
+        'total_hours': total_hours,
+    }
+    return render(request, 'time_app/overview.html', context)
+
+
+def SelectedListView(request):
+    # project_query = request.GET.get('project')
+    # client_query = request.GET.get('client')
+    # user_query = request.GET.get('user')
+    # date_start_query = request.GET.get('date_start')
+    # date_end_query = request.GET.get('date_end')
+
+    
+    context = {
         'clients': clients,
         'projects': projects,
         'users': users,
