@@ -1,5 +1,4 @@
 Django==2.2.1
-django-autocomplete-light==3.3.4
 django-crispy-forms==1.7.2
 django-flatpickr==1.0.1
 pytz==2019.1
