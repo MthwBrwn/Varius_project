@@ -24,7 +24,7 @@ SECRET_KEY = config['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["www.variuskeeper.com", "45.79.71.131"]
+ALLOWED_HOSTS = ['HOSTS']
 
 
 # Application definition
