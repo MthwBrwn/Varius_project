@@ -1,6 +1,8 @@
 {% extends "time_app/base.html" %}
 {% block content %}
-<h2>Time Submissions for {{user.username}}</h2>
+
+<h2>Time Submissions for {{user.first_name}}</h2>
+<a href="{% url 'selected-view'%}" class="navbar-brand btn btn-outline-info mb-3" > Filter Results </a>
 {% if is_paginated %}
 <h5 class="mb-4 "> Page {{ page_obj.number }} </h5>
     {% if page_obj.has_previous %}
