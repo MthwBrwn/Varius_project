@@ -29,19 +29,21 @@
           </select>
         </div>
       </div>
+      {% comment %} {% if user.is_staff %} {% endcomment %}
       <div class="form-row mb-4">
         <div class="form-group col-md-6">
           <label for="user"> Employee </label>
           <select name="user" id="user"class="form-control" >
             <option value = 0 >Open to select Employee</option>
             {% for user in users %}
-              <option value="{{user.pk}}">{{user.username}}</option>
-              
+              {%if user.username != 'Matthew'%}
+                <option value="{{user.pk}}">{{user.username}}</option>
+              {% endif %}
             {% endfor %}
           </select>
         </div>
       </div>
-          
+
         <div class="form-row mb-4">
           <div class="form-group col-md-6">
             <label for="date"> Starting Date </label>

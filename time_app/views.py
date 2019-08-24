@@ -111,12 +111,15 @@ def show_selected_view(request):
 
     project_query = request.GET.get('project')
     client_query = request.GET.get('client')
-    user_query = request.GET.get('user')
     date_start_query = request.GET.get('date_start')
     date_end_query = request.GET.get('date_end')
+    user_query = request.GET.get('user')
+    if request.user.is_staff: 
     
-    if user_query != "0":
-        posts = posts.filter(user_id=user_query)
+        if user_query != "0":
+            posts = posts.filter(user_id=user_query)
+    else:
+        posts = posts.filter(user=request.user)
 
     if project_query != "0":
         posts = posts.filter(project_id=project_query)
