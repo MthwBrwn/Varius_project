@@ -25,8 +25,8 @@ class TimePostForm(forms.ModelForm):
     def clean_time_spent(self):
         time_try = self.cleaned_data.get("time_spent")
         if time_try is not None:
-            if time_try is not int:
-                raise forms.ValidationError(
+            if time_try != float(time_try):
+                raise forms.TypeError(
                     "time entry must be an number"
                 )
             if time_try % .25 > 0:

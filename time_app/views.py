@@ -43,14 +43,14 @@ class OwnObjectsMixin():
 
 class PostListView(LoginRequiredMixin, OwnObjectsMixin, ListView):
     model = TimePost
-    template_name = 'time_app/home.html'
+    template_name = 'time_app/overview.html'
     context_object_name = 'posts'
     ordering = ['-date']
     paginate_by = 10
     paginate_orphans = 2
     
 
-class PostDetailView(LoginRequiredMixin, OwnObjectsMixin, DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = TimePost
 
 
@@ -96,7 +96,8 @@ class OverviewListView(ListView):
     template_name = 'time_app/overview.html'
     context_object_name = 'posts'
     ordering = ['-date']
-    paginate_by = 15
+    paginate_by = 10
+    paginate_orphans = 2
 
 
 def show_selected_view(request):

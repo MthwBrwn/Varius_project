@@ -1,7 +1,7 @@
 {% extends "time_app/base.html" %}
 {% block content %}
 <a href="{% url 'selected-view'%}" class="navbar-brand btn btn-outline-info mb-3" > Filter Results </a>
-<h2>Time Submissions {% if date_start_query %}--{{date_start_query}}{% endif %} to {% if date_end_query %}{{date_end_query}} {% elif not date_end_query %} today {% endif %} </h2>
+<h2>Time Submissions from {% if date_start_query %} {{date_start_query}}{% elif not date_end_query %}beginning{% endif %} to {% if date_end_query %}{{date_end_query}} {% elif not date_end_query %} today {% endif %} </h2>
 {% if total_hours %}
 <h3 class=""> Total Hours: {{total_hours}}</h3>
 {% endif %}
@@ -30,20 +30,29 @@
     {% for post in posts %}
       
             <article class="media content-section">
+                {% if user == post.user %}
+                <a class= "article-title" href="{% url 'post-detail' post.id %}"> 
+                {% else %}
 
-                <a class= "article-title" href="#"> 
+                {% endif %}
                 <div class="float-left media content">
                     <div class="mx-auto" style="width: 15em;"  >
+                        <p> {{post.user.username}}</p>
+                        <p>{{post.date}} </p>
                         <p>{{post.client.name}}</p>
                         <p> {{post.project.name}}<p>
                     </div>
                     <div class="mx-auto" style="width: 15em;">
-                    <p>{{post.time_spent}} hours </h3>
-                    <p>{{post.date}} </p> 
+                    <br>
+                    <p>Hours worked: {{post.time_spent}}</p>
+                    <p>Expenses: {{post.expenses}}</p>
+                    <p>Miles: {{post.miles}}</p>
                     </div>
-                    <div class="mx-auto" style="width: 20em;">
-                    <p> {{post.user.username}}</p> 
-                    <p> notes: {{post.notes}}</p>
+                    <div class="mx-auto" style="width: 30em;">
+                     <br>
+                    <p> Hours notes: {{post.notes}}</p>
+                    <p> Expense notes: {{post.expense_notes}}</p>
+                    <p> Miles notes: {{post.miles_notes}}</p>
                     </div> 
                 </div>
                 </a>
