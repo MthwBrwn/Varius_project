@@ -1,12 +1,19 @@
 {% extends "time_app/base.html" %}
 {% block content %}
 <a href="{% url 'selected-view'%}" class="navbar-brand btn btn-outline-info mb-3" > Filter Results </a>
-<h2>Time Submissions </h2>
+<h2>Time Submissions {% if date_start_query %}--{{date_start_query}}{% endif %} to {% if date_end_query %}{{date_end_query}} {% elif not date_end_query %} today {% endif %} </h2>
 {% if total_hours %}
 <h3 class=""> Total Hours: {{total_hours}}</h3>
-
-
 {% endif %}
+{% if total_expenses %}
+<h3 class=""> Total Expenses: {{total_expenses}}</h3>
+{% endif %}
+{% if total_miles %}
+<h3 class=""> Total Miles: {{total_miles}}</h3>
+{% endif %}
+
+
+
 {% if is_paginated %}
 <h5 class="mb-4 "> Page {{ page_obj.number }} </h5>
     {% if page_obj.has_previous %}

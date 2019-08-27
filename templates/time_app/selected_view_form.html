@@ -36,9 +36,9 @@
           <select name="user" id="user"class="form-control" >
             <option value = 0 >Open to select Employee</option>
             {% for user in users %}
-              {%if user.username != 'Matthew'%}
+              {% comment %} {%if user.username != 'Matthew'%}{% endcomment %}
                 <option value="{{user.pk}}">{{user.username}}</option>
-              {% endif %}
+              {% comment %}{% endif %} {% endcomment %}
             {% endfor %}
           </select>
         </div>

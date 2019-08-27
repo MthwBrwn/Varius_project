@@ -7,7 +7,6 @@ from .views import (
     PostCreateView,
     PostUpdateView,
     PostDeleteView,
-    PostWeekArchiveView,
     OverviewListView,
     SelectedListView,
     show_selected_view,
@@ -29,11 +28,6 @@ urlpatterns = [
         'ajax/load-projects/',
         views.load_projects,
         name='ajax_load_projects'
-        ),
-    path(
-        '<int:year>/week/<int:week>/',
-        PostWeekArchiveView.as_view(),
-        name='post-week'
         ),
     path('overview/', OverviewListView.as_view(), name='overview-create'),
     path(

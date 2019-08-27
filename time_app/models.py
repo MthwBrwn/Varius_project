@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.contrib import admin
 
 
 class Client(models.Model):
@@ -47,4 +48,5 @@ class TimePost(models.Model):
         return reverse('post-detail', kwargs={'pk': self.pk})
 
 
-
+# class TimePostAdmin(admin.ModelAdmin):
+#     list_display = ('user', 'client', 'project')
