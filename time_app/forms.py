@@ -6,9 +6,9 @@ from .models import TimePost, Project
 class TimePostForm(forms.ModelForm):
     class Meta:
         model = TimePost
-        fields = ('time_spent', 'date', 'client', 'project', 'notes')
+        fields = ('date', 'client', 'project', 'time_spent', 'notes')
         widgets = {
-            'notes': forms.Textarea(attrs={'rows': 4}),
+            'notes': forms.Textarea(attrs={'rows': 2}),
             'date': DatePickerInput()
         }
         help_texts = {
@@ -23,7 +23,7 @@ class TimePostForm(forms.ModelForm):
             raise forms.ValidationError(
                 "The partial hours posted need to be in quarter hours only"
                 )
-        if time_try <= 0:
+        if time_try < 0:
             raise forms.ValidationError(
                 "time posted cannot be negative"
                 )
