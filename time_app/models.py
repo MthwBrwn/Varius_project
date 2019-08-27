@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.contrib import admin
 
 
 class Client(models.Model):
@@ -27,8 +28,12 @@ class TimePost(models.Model):
     '''
     '''
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    time_spent = models.FloatField()
-    notes = models.TextField()
+    time_spent = models.FloatField("Time worked", null=True, blank=True)
+    expenses = models.FloatField(null=True, blank=True)
+    miles = models.FloatField(null=True, blank=True)
+    notes = models.TextField("Time notes", null=True, blank=True)
+    expense_notes = models.TextField("Expense notes", null=True, blank=True)
+    miles_notes = models.TextField("Miles notes", null=True, blank=True)
     date = models.DateField(default=timezone.now)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     project = models.ForeignKey(
@@ -43,4 +48,5 @@ class TimePost(models.Model):
         return reverse('post-detail', kwargs={'pk': self.pk})
 
 
-
+# class TimePostAdmin(admin.ModelAdmin):
+#     list_display = ('user', 'client', 'project')

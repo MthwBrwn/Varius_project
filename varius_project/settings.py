@@ -30,9 +30,9 @@ ALLOWED_HOSTS = config['HOSTS']
 # Application definition
 
 INSTALLED_APPS = [
+    'crispy_forms',
     'time_app.apps.TimeAppConfig',
     'users.apps.UsersConfig',
-    'crispy_forms',
     'flatpickr',
     'django.contrib.admin',
     'django.contrib.auth',

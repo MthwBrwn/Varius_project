@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
     ListView, DetailView,
     CreateView, UpdateView,
-    DeleteView, WeekArchiveView,
+    DeleteView
 )
 posts = TimePost.objects.all()
 clients = Client.objects.all()
@@ -43,21 +43,14 @@ class OwnObjectsMixin():
 
 class PostListView(LoginRequiredMixin, OwnObjectsMixin, ListView):
     model = TimePost
-    template_name = 'time_app/home.html'
+    template_name = 'time_app/overview.html'
     context_object_name = 'posts'
     ordering = ['-date']
     paginate_by = 10
     paginate_orphans = 2
     
 
-class PostWeekArchiveView(WeekArchiveView):
-    queryset = TimePost.objects.all()
-    date_field = "date"
-    week_format = "%W"
-    allow_future = False
-
-
-class PostDetailView(LoginRequiredMixin, OwnObjectsMixin, DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = TimePost
 
 
@@ -103,7 +96,8 @@ class OverviewListView(ListView):
     template_name = 'time_app/overview.html'
     context_object_name = 'posts'
     ordering = ['-date']
-    paginate_by = 15
+    paginate_by = 10
+    paginate_orphans = 2
 
 
 def show_selected_view(request):
@@ -136,12 +130,24 @@ def show_selected_view(request):
     posts = posts.order_by('-date', 'client')
 
     total_hours = 0
-    for post in posts:
-        total_hours += post.time_spent
+    total_miles = 0
+    total_expenses = 0
     
+    for post in posts:
+        if post.time_spent is not None:
+            total_hours += post.time_spent
+        if post.miles is not None:   
+            total_miles += post.miles
+        if post.expenses is not None:    
+            total_expenses += post.expenses
+   
     context = {
         'posts': posts,
         'total_hours': total_hours,
+        'total_miles': total_miles,
+        'total_expenses': total_expenses,
+        'date_start_query': date_start_query,
+        'date_end_query': date_end_query
     }
     return render(request, 'time_app/overview.html', context)
 

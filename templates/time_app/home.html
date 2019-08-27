@@ -16,29 +16,33 @@
     {% endif %}
         
 {% endif %}
-    {% for post in posts %}
-        <!-- {% if post.user.username == user.username %} -->
-            <article class="media content-section">
 
-                <a class= "article-title" href="{% url 'post-detail' post.id %}"> 
-                <div class="media content">
-                    <div class="float-left" >
-                        <p>{{post.client.name}}</p>
-                        <p> {{post.project.name}}<p>
-                    </div>
-                    <div class="ml-5">
-                    <p>{{post.time_spent}} hours </h3>
-                    <!-- <p> {{post.user.username}}</p> -->
-                    <p>{{post.date}} </p> 
-                    </div>
-                    <p class="article-content ml-5">notes: {{post.notes}}</p>
-                </div>
-                </a>
-            </article>
-        <!-- {% endif %}  -->
-    {% endfor %}  
 
-    
-    
+{% for post in posts %}
+<a class= "article-title" href="{% url 'post-detail' post.id %}"> 
+    <div class="container-fluid ">
+        <article class="media content-section">
+            <div class="row">
+                <div class="col-4"><p>{{post.client.name}}</p></div>
+                <div class="col-3"> <p>{{post.time_spent}}</p></div>
+                <div class="col-5"> <p>Notes:{{post.notes}}</p></div>
+            </div>
+            <div class="row float-left">
+                <div class="col-4">{{post.project.name}}</div>
+                <div class="col-3"><p> {{post.expenses}} </p> </div>
+                <div class="col-5"> expense notes </div>
+            </div>
+            <div class="row">
+                <div class="col-4">{{post.date}}</div>
+                <div class="col-3"> (miles)</div>
+                <div class="col-5"> i</div>
+            </div>
+        </article>
+    </div>
+</a> 
+            
+        
+{% endfor %}  
+
 {% endblock content %}
     
