@@ -1,19 +1,50 @@
 {% extends "time_app/base.html" %}
 {% block content %}
     
-    <article class="media content-section">
-        <div class="media-body">
-            <div>
-            <h1>{{object.client.name}}</h1>
-            <h3> {{object.project.name}}</h3>
-            {% comment %} <h3> {{object.user.username}}</h3> {% endcomment %}
+    <article class="container border rounded mb-3 mt-3 ">
+        <div class="row mb-1 mt-3">
+            <div class="col-sm-4"   >
+                <h3>{{object.client.name}}</h3>
             </div>
-            <h3>{{object.time_spent}} hours</h3>
-            <h4>{{object.date}}</h4> 
-            <p class="article-content">notes: {{object.notes}}</p>
+            <div class="col-sm-8"   >
+                <h3>{{object.project.name}}</h3>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-sm-6"   >
+                <h3>{{object.date}}</h3>
+            </div>
+          
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-4"   >
+                <h3>Time spent: {{object.time_spent}}</h3>
+            </div>
+            <div class="col-sm-8"   >
+                <h3>Note: {{object.notes}}</h3>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-4"   >
+                <h3>Expenses: {{object.expenses}}</h3>
+            </div>
+            <div class="col-sm-8"   >
+                <h3>Note: {{object.expense_notes}}</h3>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-4"   >
+                <h3>Miles: {{object.miles}}</h3>
+            </div>
+            <div class="col-sm-8"   >
+                <h3>Note: {{object.miles_notes}}</h3>
+            </div>
+        </div>  
+        <div class="mb-3">
             <a class="btn btn-outline-info ml-5"href="{% url 'post-update' object.id %}"> EDIT </a>
-            <a class="btn btn-outline-danger ml-5"href="{% url 'post-delete' object.id %}"> DELETE </a>
-        </div> 
+            <a class="btn btn-outline-danger ml-5"href="{% url 'post-delete' object.id %}"> DELETE </a>             
+        </div>
+        
     </article>
 
 {% endblock content %}
