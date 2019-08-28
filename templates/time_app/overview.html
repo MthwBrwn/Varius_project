@@ -29,26 +29,26 @@
 {% endif %}
     {% for post in posts %}
       
-            <article class="media content-section">
+            <article class="container border rounded mb-3 mt-3">
                 {% if user == post.user %}
                 <a class= "article-title" href="{% url 'post-detail' post.id %}"> 
                 {% else %}
 
                 {% endif %}
-                <div class="float-left media content">
-                    <div class="mx-auto" style="width: 15em;"  >
+                <div class="row">
+                    <div class="col-sm-4"   >
                         <p> {{post.user.username}}</p>
                         <p>{{post.date}} </p>
                         <p>{{post.client.name}}</p>
                         <p> {{post.project.name}}<p>
                     </div>
-                    <div class="mx-auto" style="width: 15em;">
+                    <div class="col-sm-2" >
                     <br>
                     <p>Hours worked: {{post.time_spent}}</p>
                     <p>Expenses: {{post.expenses}}</p>
                     <p>Miles: {{post.miles}}</p>
                     </div>
-                    <div class="mx-auto" style="width: 30em;">
+                    <div class="col-sm-5" >
                      <br>
                     <p> Hours notes: {{post.notes}}</p>
                     <p> Expense notes: {{post.expense_notes}}</p>
