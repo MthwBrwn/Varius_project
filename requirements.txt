@@ -1,6 +1,7 @@
-Django==2.2.4
-django-autocomplete-light==3.3.4
+-i https://pypi.org/simple/
+django-autocomplete-light==3.4.1
 django-crispy-forms==1.7.2
 django-flatpickr==1.0.1
-pytz==2019.1
+django==2.2.8
+pytz==2019.3
 sqlparse==0.3.0
