@@ -9,9 +9,9 @@ from django.views.generic import (
     DeleteView
 )
 posts = TimePost.objects.all()
-clients = Client.objects.all()
-projects = Project.objects.all()
-users = User.objects.all()
+clients = Client.objects.all().order_by('name')
+projects = Project.objects.all().order_by('name')
+users = User.objects.all().order_by('username')
 
 
 def load_projects(request):
