@@ -10,6 +10,9 @@ class Client(models.Model):
     '''
     name = models.CharField(max_length=255)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
 
@@ -19,6 +22,7 @@ class Project(models.Model):
     '''
     name = models.CharField(max_length=255)
     client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True)
+    
 
     def __str__(self):
         return self.name
