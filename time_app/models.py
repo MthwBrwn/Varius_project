@@ -39,9 +39,9 @@ class TimePost(models.Model):
     expense_notes = models.TextField("Expense notes", null=True, blank=True)
     miles_notes = models.TextField("Miles notes", null=True, blank=True)
     # added image to model in order to upload expenses
-    expense_image = models.ImageField(
-        "Upload your expense sheet", null=True, blank=True
-        )
+    # expense_image = models.ImageField(
+    #     "Upload your expense sheet", null=True, blank=True
+    #     )
     date = models.DateField(default=timezone.now)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     project = models.ForeignKey(

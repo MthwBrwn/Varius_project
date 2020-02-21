@@ -8,7 +8,7 @@ class TimePostForm(forms.ModelForm):
         model = TimePost
         fields = (
             'date', 'client', 'project', 'time_spent', 'notes',
-            'expenses', 'expense_notes', 'expense_image', 'miles', 
+            'expenses', 'expense_notes', 'miles', 
             'miles_notes',
         )
         widgets = {
