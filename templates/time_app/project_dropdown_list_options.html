@@ -1,4 +1,12 @@
 <option value="0" >Open to select project</option>
 {% for pro in projects %}
+{% if  pro.archived is False%}
 <option value="{{ pro.pk }}">{{ pro.name }}</option>
+{% endif %}
+
+{% if  user.is_staff%}
+    {% if  pro.archived is True%}
+    <option value="{{ pro.pk }}">{{ pro.name }}</option>
+    {% endif %}
+{% endif %}
 {% endfor %}
