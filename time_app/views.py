@@ -144,8 +144,8 @@ def show_selected_view(request):
     context = {
         'posts': posts,
         'total_hours': total_hours,
-        'total_miles': total_miles,
-        'total_expenses': total_expenses,
+        'total_miles': round(total_miles, 2),
+        'total_expenses': round(total_expenses, 2),
         'date_start_query': date_start_query,
         'date_end_query': date_end_query
     }
