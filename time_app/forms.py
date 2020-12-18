@@ -20,7 +20,8 @@ class TimePostForm(forms.ModelForm):
         help_texts = {
             'time_spent': '''This field is in hours.  
             Partial hours should only be entered as quarter-hours
-            (.25, .5, .75, .0)'''
+            (.25, .5, .75, .0)''',
+            'expense notes':'''  '''
         }
 
     def clean_time_spent(self):
@@ -51,8 +52,18 @@ class TimePostForm(forms.ModelForm):
                 raise forms.ValidationError(
                     "posted expenses cannot be negative"
                     )
-    
+            expenses_try = round(expenses_try, 2)
         return expenses_try
+
+    def clean_miles(self):
+        miles_try = self.cleaned_data.get("miles")
+        if miles_try is not None:
+            if miles_try < 0:
+                raise forms.ValidationError(
+                    "miles cannot be negative"
+                    )
+            miles_try = round(miles_try, 2)
+        return miles_try
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

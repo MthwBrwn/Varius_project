@@ -30,11 +30,10 @@
     {% for post in posts %}
       
             <article class="container border rounded mb-3 mt-3">
-                {% if user == post.user %}
+                {% if user == post.user or user.is_staff%}
                 <a class= "article-title" href="{% url 'post-detail' post.id %}"> 
-                {% else %}
 
-                {% endif %}
+               {% endif %}
                 <div class="row">
                     <div class="col-sm-4"   >
                         <p> {{post.user.username}}</p>
