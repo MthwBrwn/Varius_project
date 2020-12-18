@@ -37,7 +37,9 @@ class OwnObjectsMixin():
     for the specific user
     """
     def get_queryset(self):
+        
         user = self.request.user
+        
         return super(OwnObjectsMixin, self).get_queryset().filter(user=user)
 
 
@@ -50,8 +52,21 @@ class PostListView(LoginRequiredMixin, OwnObjectsMixin, ListView):
     paginate_orphans = 2
     
 
-class PostDetailView(LoginRequiredMixin, DetailView):
+class PostDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = TimePost
+
+    # def form_valid(self, form):
+    #     if not self.request.user.is_staff:
+    #         form.instance.user = self.request.user
+    #     return super().form_valid(form)
+    #     form.save()
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user.is_staff:
+            return True
+        if self.request.user == post.user:
+            return True
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -71,12 +86,15 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     success_url = '/'
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        if not self.request.user.is_staff:
+            form.instance.user = self.request.user
         return super().form_valid(form)
         form.save()
 
     def test_func(self):
         post = self.get_object()
+        if self.request.user.is_staff:
+            return True
         if self.request.user == post.user:
             return True
 
@@ -87,6 +105,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
   
     def test_func(self):
         post = self.get_object()
+        
         if self.request.user == post.user:
             return True
 
